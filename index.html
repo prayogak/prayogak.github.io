@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <title>ChatGPT</title>
+  <title>AI Asisten</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="google-adsense-account" content="ca-pub-1811586010937090">
@@ -204,6 +204,17 @@
       if (e.key === 'Enter') sendMessage();
     });
 
+    addMessage('Saweria click', 'bot');
+
+    // Tambahkan elemen link dan buka di tab baru
+    const saweriaLink = document.createElement('a');
+    saweriaLink.href = 'https://saweria.co/P44ndu';
+    saweriaLink.target = '_blank'; // Membuka di tab baru
+    saweriaLink.rel = 'noopener noreferrer'; // Menambah keamanan
+    saweriaLink.textContent = 'Klik di sini untuk Saweria';
+
+    // Misalnya tambahkan ke dalam sebuah elemen kontainer
+    document.body.appendChild(saweriaLink); // Append link ke body atau elemen lain
     addMessage('Halo! Saya AI asisten. Ada yang bisa saya bantu?', 'bot');
   </script>
 </body>
