@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Directory Sitemap</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sitemap</h1>
+    <ul id="sitemap"></ul>
+    <script>
+        async function fetchFiles() {
+            try {
+                const response = await fetch('./'); // Mendapatkan isi direktori
+                const text = await response.text();
+
+                // Menggunakan DOMParser untuk mem-parsing respon
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(text, 'text/html');
+                const links = Array.from(doc.querySelectorAll('a')); // Mengambil semua tautan di direktori
+                
+                const validFiles = links
+                    .map(link => link.getAttribute('href')) // Mengambil atribut href
+                    .filter(file => file.match(/\.(html|htm)$/i)) // Memfilter hanya file .html dan .htm
+                    .sort(); // Mengurutkan file
+
+                const sitemap = document.getElementById('sitemap');
+                validFiles.forEach(file => {
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.href = file;
+                    a.textContent = file;
+                    li.appendChild(a);
+                    sitemap.appendChild(li);
+                });
+            } catch (error) {
+                console.error('Error fetching files:', error);
+            }
+        }
+
+        fetchFiles();
+    </script>
+</body>
+</html>
