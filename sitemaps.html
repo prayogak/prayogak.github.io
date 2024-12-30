@@ -16,10 +16,16 @@
         li {
             margin: 5px 0;
         }
+        .file-content {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background: #f9f9f9;
+        }
     </style>
 </head>
 <body>
-    <h1>Sitemap</h1>
+    <h1>Sitemap with File Contents</h1>
     <ul id="sitemap"></ul>
     <script>
         async function fetchFiles() {
@@ -38,14 +44,28 @@
                     .sort(); // Mengurutkan file
 
                 const sitemap = document.getElementById('sitemap');
-                validFiles.forEach(file => {
+                for (const file of validFiles) {
                     const li = document.createElement('li');
                     const a = document.createElement('a');
                     a.href = file;
                     a.textContent = file;
                     li.appendChild(a);
+
+                    // Fetch isi file dan tampilkan
+                    const contentDiv = document.createElement('div');
+                    contentDiv.className = 'file-content';
+
+                    try {
+                        const fileResponse = await fetch(file);
+                        const fileText = await fileResponse.text();
+                        contentDiv.textContent = fileText;
+                    } catch (err) {
+                        contentDiv.textContent = 'Error loading file content';
+                    }
+
+                    li.appendChild(contentDiv);
                     sitemap.appendChild(li);
-                });
+                }
             } catch (error) {
                 console.error('Error fetching files:', error);
             }
