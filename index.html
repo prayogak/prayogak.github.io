@@ -204,17 +204,28 @@
       if (e.key === 'Enter') sendMessage();
     });
 
-    addMessage('Saweria click', 'bot');
+    function addMessage(message, sender) {
+    const chatContainer = document.getElementById('chat-container'); // Asumsikan elemen ini ada
 
-    // Tambahkan elemen link dan buka di tab baru
-    const saweriaLink = document.createElement('a');
-    saweriaLink.href = 'https://saweria.co/P44ndu';
-    saweriaLink.target = '_blank'; // Membuka di tab baru
-    saweriaLink.rel = 'noopener noreferrer'; // Menambah keamanan
-    saweriaLink.textContent = 'Klik di sini untuk Saweria';
+    const messageElement = document.createElement('div');
+    messageElement.className = `message ${sender}`;
 
-    // Misalnya tambahkan ke dalam sebuah elemen kontainer
-    document.body.appendChild(saweriaLink); // Append link ke body atau elemen lain
+    if (message === 'Saweria click') {
+        const saweriaLink = document.createElement('a');
+        saweriaLink.href = 'https://saweria.co/P44ndu';
+        saweriaLink.target = '_blank'; // Membuka di tab baru
+        saweriaLink.rel = 'noopener noreferrer'; // Keamanan tambahan
+        saweriaLink.textContent = 'Saweria klik di sini';
+        messageElement.appendChild(saweriaLink);
+    } else {
+        messageElement.textContent = message;
+    }
+
+    chatContainer.appendChild(messageElement);
+}
+
+// Contoh pemanggilan
+addMessage('Saweria click', 'bot');
     addMessage('Halo! Saya AI asisten. Ada yang bisa saya bantu?', 'bot');
   </script>
 </body>
